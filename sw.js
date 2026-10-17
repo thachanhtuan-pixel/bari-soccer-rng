@@ -1,6 +1,6 @@
 // Service worker: lưu cache để chơi được khi không có mạng
 // Khi cập nhật game, đổi số VERSION để người chơi nhận bản mới
-const VERSION = 'bsr-v1';
+const VERSION = 'bsr-v2';
 const CORE = ['./', 'index.html', 'css/style.css', 'js/cards-data.js', 'js/audio.js', 'js/game.js', 'manifest.json', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
@@ -29,8 +29,7 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
   e.respondWith(caches.match(e.request).then(hit => hit || fetch(e.request).then(res => {
-    const copy = res.clone();
-    caches.open(VERSION).then(c => c.put(e.request, copy));
+    if (res.ok) { const copy = res.clone(); caches.open(VERSION).then(c => c.put(e.request, copy)); }
     return res;
   })));
 });
