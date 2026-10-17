@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Bari's Soccer RNG</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0d0f1c">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Soccer RNG">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app" id="app">
+
+  <!-- ===== MÀN HÌNH CHÍNH ===== -->
+  <section class="screen" id="main">
+    <header class="topbar">
+      <button class="chip" id="formationBtn">4-3-3 <span class="caret">▾</span></button>
+      <button class="chip icon" id="soundBtn" title="Âm thanh">🔊</button>
+    </header>
+    <div class="pitch" id="mainPitch">
+      <div class="ovr-badge"><span class="ovr-label">OVR</span><span class="ovr-value" id="mainOvr">0</span></div>
+    </div>
+    <footer class="bottombar">
+      <button class="btn primary big" id="buildBtn">LẬP ĐỘI</button>
+    </footer>
+
+    <div class="sheet-backdrop hidden" id="formationSheet">
+      <div class="sheet">
+        <div class="sheet-title">Chọn sơ đồ</div>
+        <div class="sheet-list" id="formationList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BẢNG LẬP ĐỘI ===== -->
+  <section class="screen modal hidden" id="builder">
+    <header class="topbar">
+      <button class="chip icon" id="closeBuilder" title="Thoát">✕</button>
+      <div class="builder-title" id="builderTitle">4-3-3</div>
+      <div class="builder-progress" id="builderProgress">0/11</div>
+    </header>
+    <div class="pitch" id="builderPitch"></div>
+
+    <div class="roll-panel" id="rollPanel">
+      <button class="btn primary roll-btn" id="rollBtn">ROLL</button>
+      <div class="reroll-text" id="rerollText">Bạn còn 3 lượt roll lại</div>
+      <div class="roll-cards" id="rollCards">
+        <div class="roll-slot"></div><div class="roll-slot"></div><div class="roll-slot"></div>
+      </div>
+    </div>
+
+    <div class="result-panel hidden" id="resultPanel">
+      <div class="result-title" id="resultTitle"></div>
+      <div class="result-ovr" id="resultOvr"></div>
+      <div class="result-sub" id="resultSub"></div>
+      <button class="btn primary" id="resultClose">VỀ SÂN CHÍNH</button>
+    </div>
+  </section>
+
+  <div class="credit">thachanhtuan</div>
+</div>
+<script src="js/cards-data.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/game.js"></script>
+<script>
+  // Đăng ký service worker (chỉ chạy khi mở qua http/https, bản Electron bỏ qua)
+  if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+  }
+</script>
+</body>
+</html>

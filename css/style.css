@@ -1,0 +1,97 @@
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; height: 100%; background: #07080f; color: #fff; font-family: "Segoe UI", system-ui, Roboto, sans-serif; overflow: hidden; user-select: none; -webkit-user-select: none; }
+.app { position: relative; width: 100%; max-width: 480px; height: 100dvh; margin: 0 auto; background: #0d0f1c; overflow: hidden; }
+.hidden { display: none !important; }
+.screen { position: absolute; inset: 0; display: flex; flex-direction: column; padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom); background: #0d0f1c; }
+.modal { z-index: 20; animation: fadeIn .2s ease; }
+
+/* ---- thanh trên / dưới ---- */
+.topbar { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; gap: 8px; min-height: 56px; }
+.bottombar { padding: 12px 16px 16px; }
+.chip { background: #1a1d33; color: #fff; border: 1px solid #2c3052; border-radius: 12px; padding: 10px 16px; font-size: 16px; font-weight: 700; cursor: pointer; letter-spacing: .5px; }
+.chip.icon { padding: 10px 14px; }
+.chip:active { transform: scale(.96); }
+.caret { opacity: .6; font-size: 12px; margin-left: 4px; }
+.builder-title { font-weight: 800; font-size: 18px; letter-spacing: 1px; }
+.builder-progress { font-weight: 700; color: #8dffb0; min-width: 52px; text-align: right; }
+
+.btn { border: 0; border-radius: 14px; padding: 14px 24px; font-size: 18px; font-weight: 800; letter-spacing: 1px; color: #fff; cursor: pointer; transition: transform .1s, filter .2s, opacity .2s; }
+.btn:active:not(:disabled) { transform: scale(.97); }
+.btn.primary { background: linear-gradient(180deg, #31d56b, #17a24a); box-shadow: 0 4px 0 #0e6b30, 0 8px 20px rgba(23,162,74,.35); }
+.btn.big { width: 100%; padding: 18px; font-size: 22px; }
+.btn:disabled { filter: grayscale(.9) brightness(.6); cursor: not-allowed; }
+.btn.alt { background: linear-gradient(180deg, #f0b429, #c98a0b); box-shadow: 0 4px 0 #8a5d05, 0 8px 20px rgba(240,180,41,.3); }
+
+/* ---- sân bóng ---- */
+.pitch { position: relative; flex: 1; margin: 0 10px; border-radius: 16px; overflow: hidden; border: 2px solid #1f6b3a;
+  background:
+    repeating-linear-gradient(180deg, #1c8a43 0 8.33%, #1f9a4b 8.33% 16.66%);
+}
+.pitch::before { content: ""; position: absolute; inset: 14px; border: 2px solid rgba(255,255,255,.35); border-radius: 4px; pointer-events: none; }
+.pitch::after { content: ""; position: absolute; left: 14px; right: 14px; top: 50%; height: 2px; background: rgba(255,255,255,.35); pointer-events: none; }
+.pitch .circle { position: absolute; left: 50%; top: 50%; width: 22%; aspect-ratio: 1; transform: translate(-50%,-50%); border: 2px solid rgba(255,255,255,.35); border-radius: 50%; pointer-events: none; }
+.pitch .box { position: absolute; left: 25%; right: 25%; height: 12%; border: 2px solid rgba(255,255,255,.35); pointer-events: none; }
+.pitch .box.top { top: 14px; border-top: 0; }
+.pitch .box.bot { bottom: 14px; border-bottom: 0; }
+
+.ovr-badge { position: absolute; top: 12px; left: 12px; z-index: 5; background: rgba(8,10,22,.82); border: 1px solid rgba(255,255,255,.2); border-radius: 12px; padding: 6px 12px; display: flex; flex-direction: column; align-items: center; line-height: 1; backdrop-filter: blur(4px); }
+.ovr-label { font-size: 11px; font-weight: 700; color: #9aa0c8; letter-spacing: 2px; }
+.ovr-value { font-size: 28px; font-weight: 900; color: #ffd84a; margin-top: 3px; }
+
+/* ---- ô cầu thủ trên sân ---- */
+.slot { position: absolute; width: var(--cw, 60px); aspect-ratio: 0.8; transform: translate(-50%, -50%); border-radius: 8px; background: rgba(5,6,14,.55); border: 1px solid rgba(0,0,0,.25); display: flex; align-items: center; justify-content: center; transition: box-shadow .15s, background .15s; }
+.slot .poslabel { font-size: calc(var(--cw, 60px) * .26); font-weight: 800; color: rgba(255,255,255,.28); pointer-events: none; }
+.slot.hint { animation: pulse 1s infinite; background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.6); }
+.slot.over { background: rgba(141,255,176,.35); box-shadow: 0 0 0 3px #8dffb0; }
+.slot.filled { background: transparent; border-color: transparent; }
+.slot img.card { width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.slot.filled.pop img.card { animation: popIn .35s cubic-bezier(.2,1.6,.4,1); }
+.ovr-pill { position: absolute; bottom: -9px; left: 50%; transform: translateX(-50%); min-width: 34px; padding: 1px 6px; border-radius: 10px; background: rgba(5,6,14,.92); font-weight: 900; font-size: calc(var(--cw, 60px) * .26); text-align: center; border: 1px solid currentColor; }
+.ovr-pill.exact { color: #a8ffc2; }
+.ovr-pill.near { color: #ffffff; }
+.ovr-pill.bad { color: #ff5a5a; }
+.glow-gold { filter: drop-shadow(0 0 7px rgba(255,200,40,.85)) drop-shadow(0 0 14px rgba(255,200,40,.4)); }
+.glow-red { filter: drop-shadow(0 0 7px rgba(255,50,50,.9)) drop-shadow(0 0 14px rgba(255,50,50,.45)); }
+
+/* ---- panel roll ---- */
+.roll-panel { padding: 10px 12px 14px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.roll-btn { width: 70%; max-width: 260px; }
+.reroll-text { font-size: 13px; color: #9aa0c8; min-height: 18px; }
+.roll-cards { display: flex; gap: 10px; width: 100%; justify-content: center; margin-top: 4px; }
+.roll-slot { position: relative; width: 30%; aspect-ratio: 0.8; border-radius: 10px; background: rgba(255,255,255,.05); border: 1px dashed #2c3052; display: flex; align-items: center; justify-content: center; touch-action: none; transition: opacity .25s, transform .15s; }
+.roll-slot img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.roll-slot.spinning img { filter: blur(1.5px) brightness(.85); }
+.roll-slot.has-card { cursor: pointer; border-style: solid; border-color: transparent; background: transparent; }
+.roll-slot.landed img { animation: popIn .35s cubic-bezier(.2,1.6,.4,1); }
+.roll-slot.has-card.chosen { cursor: grab; transform: scale(1.06); }
+.roll-slot.has-card.chosen img { filter: drop-shadow(0 0 10px #fff); }
+.roll-slot.dimmed { opacity: .25; pointer-events: none; }
+.roll-slot.gone { visibility: hidden; }
+.drag-ghost { position: fixed; z-index: 100; pointer-events: none; transform: translate(-50%, -60%) scale(1.1); opacity: .95; }
+.drag-ghost img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 8px 12px rgba(0,0,0,.6)); }
+
+/* ---- kết quả ---- */
+.result-panel { padding: 14px 16px 22px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px; animation: slideUp .35s ease; }
+.result-title { font-size: 26px; font-weight: 900; letter-spacing: 1px; }
+.result-title.record { color: #ffd84a; text-shadow: 0 0 18px rgba(255,216,74,.7); animation: pulseText 1s infinite; }
+.result-ovr { font-size: 42px; font-weight: 900; }
+.result-sub { color: #9aa0c8; font-size: 14px; margin-bottom: 8px; }
+
+/* ---- sheet chọn sơ đồ ---- */
+.sheet-backdrop { position: absolute; inset: 0; z-index: 30; background: rgba(0,0,0,.6); display: flex; align-items: flex-start; justify-content: center; padding-top: 70px; animation: fadeIn .15s ease; }
+.sheet { background: #171a30; border: 1px solid #2c3052; border-radius: 16px; padding: 14px; width: 80%; max-width: 320px; }
+.sheet-title { font-size: 14px; color: #9aa0c8; font-weight: 700; margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase; }
+.sheet-list { display: flex; flex-direction: column; gap: 8px; }
+.sheet-item { background: #1f2340; border: 1px solid transparent; color: #fff; border-radius: 10px; padding: 12px 14px; font-size: 18px; font-weight: 700; text-align: left; cursor: pointer; display: flex; justify-content: space-between; }
+.sheet-item.active { border-color: #31d56b; }
+.sheet-item small { color: #ffd84a; font-size: 14px; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes popIn { 0% { transform: scale(.4); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+@keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(255,255,255,.5); } 50% { box-shadow: 0 0 0 6px rgba(255,255,255,0); } }
+@keyframes pulseText { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+
+/* thẻ vừa đặt có thể kéo sang ô khác tới khi bấm ROLL tiếp */
+.slot.movable { cursor: grab; touch-action: none; box-shadow: 0 0 0 2px rgba(255,255,255,.75); }
+.credit { position: absolute; right: 10px; bottom: 3px; z-index: 50; font-size: 10px; color: rgba(255,255,255,.35); pointer-events: none; letter-spacing: .5px; }
